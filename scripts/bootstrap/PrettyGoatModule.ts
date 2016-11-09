@@ -72,7 +72,7 @@ class PrettyGoatModule implements IModule {
         kernel.bind<TimeSnapshotStrategy>("TimeSnapshotStrategy").to(TimeSnapshotStrategy).inSingletonScope();
         kernel.bind<Dictionary<IProjectionRunner<any>>>("IProjectionRunnerHolder").toConstantValue({});
         kernel.bind<Dictionary<ITickScheduler>>("ITickSchedulerHolder").toConstantValue({});
-        kernel.bind<ILogger>("ILogger").to(ConsoleLogger).inSingletonScope();
+        // kernel.bind<ILogger>("ILogger").to(ConsoleLogger).inSingletonScope();
         kernel.bind<ITickScheduler>("ITickScheduler").to(TickScheduler);
         kernel.bind<interfaces.Factory<ITickScheduler>>("Factory<ITickScheduler>").toAutoFactory<ITickScheduler>("ITickScheduler");
     };
