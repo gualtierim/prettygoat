@@ -71,6 +71,10 @@ class WinstonLogger implements ILogger {
 
         return returnValue;
     }
+
+    getTransport():any[]{
+        return this.logger.loggers.default.transports;
+    }
 }
 
 export default WinstonLogger
