@@ -9,21 +9,21 @@ class ConsoleLogger implements ILogger {
 
     debug(message:string) {
         if (this.logLevel <= LogLevel.Debug)
-            console.log(message);
+            console.log(this.logLevel+" "+message);
     }
 
     info(message:string) {
         if (this.logLevel <= LogLevel.Info)
-            console.info(message);
+            console.info(this.logLevel+" "+message);
     }
 
     warning(message:string) {
         if (this.logLevel <= LogLevel.Warning)
-            console.warn(message);
+            console.warn(this.logLevel+" "+message);
     }
 
     error(error:string|Error) {
-        console.error(error);
+        console.error(this.logLevel+" "+error);
     }
 
     setLogLevel(level:LogLevel) {

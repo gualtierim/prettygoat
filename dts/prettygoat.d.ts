@@ -152,6 +152,10 @@ declare module prettygoat {
         fetchSize?:number;
     }
 
+    export interface WinstonConfig{
+        transport:Function[]
+    }
+
     export interface IPollToPushConfig {
         interval:number
     }
@@ -231,6 +235,20 @@ declare module prettygoat {
 
         setLogLevel(level:LogLevel);
     }
+
+    export class WinstonLogger implements ILogger {
+
+        debug(message:string);
+
+        info(message:string);
+
+        warning(message:string);
+
+        error(error:string|Error);
+
+        setLogLevel(level:LogLevel);
+    }
+
 
     export interface ITickScheduler extends IStreamFactory {
         schedule(dueTime:number | Date, state?:string, splitKey?:string);
