@@ -13,8 +13,9 @@ class WinstonLogger implements ILogger {
     constructor(@inject("WinstonConfig") private config:WinstonConfig){
         if(!_.isNil(config) && config.transport.length>0){
             _.forEach(config.transport, (value,key) => {
-                if(value.type=='file'){
-                    this.logger.add(this.logger.transports.File,value.options);
+                let type = this.setTranspotType(value.type);
+                if(type!=null){
+                    this.logger.add(type,value.options);
                 }
             })
         }
@@ -42,6 +43,23 @@ class WinstonLogger implements ILogger {
     setLogLevel(level:LogLevel) {
         // this.logger.level = level;
         this.logLevel = level;
+    }
+
+    setTranspotType(type:string){
+        let returnValue;
+
+        switch (type) {
+            case "file":
+                returnValue = this.logger.transports.File;
+                break;
+            case "console":
+                returnValue = this.logger.transports.Console;
+                break;
+            default:
+                returnValue = null;
+        }
+
+        return returnValue;
     }
 }
 
