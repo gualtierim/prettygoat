@@ -44,6 +44,8 @@ import ILogger from "../log/ILogger";
 import ConsoleLogger from "../log/ConsoleLogger";
 import ITickScheduler from "../ticks/ITickScheduler";
 import TickScheduler from "../ticks/TickScheduler";
+import ILoggerRetriever from "../log/ILoggerRetriever";
+import WinstonRetriever from "../log/WinstonRetriever";
 
 class PrettyGoatModule implements IModule {
 
@@ -65,6 +67,7 @@ class PrettyGoatModule implements IModule {
         kernel.bind<SocketFactory>("SocketFactory").to(SocketFactory).inSingletonScope();
         kernel.bind<IReadModelFactory>("IReadModelFactory").to(ReadModelFactory).inSingletonScope();
         kernel.bind<IDateRetriever>("IDateRetriever").to(DateRetriever).inSingletonScope();
+        kernel.bind<ILoggerRetriever>("LoggerRetriever").to(WinstonRetriever).inSingletonScope();
         kernel.bind<TimePartitioner>("TimePartitioner").to(TimePartitioner).inSingletonScope();
         kernel.bind<IStatePublisher>("IStatePublisher").to(ExpressStatePublisher).inSingletonScope();
         kernel.bind<ISnapshotRepository>("ISnapshotRepository").to(CassandraSnapshotRepository).inSingletonScope();

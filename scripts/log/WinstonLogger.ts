@@ -3,14 +3,24 @@ import LogLevel from "./LogLevel";
 import {injectable,inject} from "inversify";
 import WinstonConfig from "../configs/IWinstonConfig";
 import * as _ from "lodash";
+import ILoggerRetriever from "./ILoggerRetriever";
+import WinstonRetriever from "./WinstonRetriever";
 
 @injectable()
 class WinstonLogger implements ILogger {
 
-    private logger = require('winston');
     private logLevel = LogLevel.Debug;
+    private logger:any;
 
-    constructor(@inject("WinstonConfig") private config:WinstonConfig){
+    constructor(@inject("WinstonConfig") private config:WinstonConfig,
+                @inject("LoggerRetriever") private loggerRetriever:ILoggerRetriever){
+
+        this.logger = loggerRetriever.getLogger();
+
+        if(!(loggerRetriever instanceof WinstonRetriever)){
+            throw new Error(`not a winston logger system`);
+        }
+
         if(!_.isNil(config) && config.transport.length>0){
             _.forEach(config.transport, (value,key) => {
                 let type = this.setTranspotType(value.type);
